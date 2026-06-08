@@ -1,0 +1,55 @@
+services:
+  # Application Service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: peminjaman-service
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - APP_KEY=${APP_KEY}
+      - DB_CONNECTION=mysql
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=peminjaman_db
+      - DB_USERNAME=peminjaman_user
+      - DB_PASSWORD=secret123
+      - IAE_API_KEY=102022400314
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - peminjaman-network
+
+  # MySQL Database
+  db:
+    image: mysql:8.0
+    container_name: peminjaman-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: peminjaman_db
+      MYSQL_USER: peminjaman_user
+      MYSQL_PASSWORD: secret123
+      MYSQL_ROOT_PASSWORD: rootsecret123
+    ports:
+      - "3307:3306"
+    volumes:
+      - peminjaman-db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootsecret123"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - peminjaman-network
+
+volumes:
+  peminjaman-db-data:
+
+networks:
+  peminjaman-network:
+    driver: bridge

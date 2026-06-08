@@ -1,0 +1,49 @@
+"""
+Tipe data Loan — Peminjaman Buku E-Library
+Merepresentasikan satu record peminjaman buku oleh anggota
+"""
+type Loan {
+    id: ID!
+    member_id: String!
+    book_id: String!
+    book_title: String!
+    member_name: String!
+    loan_date: Date!
+    due_date: Date!
+    return_date: Date
+    status: LoanStatus!
+    notes: String
+    created_at: DateTime
+    updated_at: DateTime
+}
+
+"""Status peminjaman buku"""
+enum LoanStatus {
+    active
+    returned
+    overdue
+}
+
+"""Input untuk membuat peminjaman baru"""
+input CreateLoanInput {
+    member_id: String!
+    book_id: String!
+    book_title: String!
+    member_name: String!
+    loan_date: Date!
+    due_date: Date!
+    notes: String
+}
+
+type Query {
+    """Mengambil semua data peminjaman — setara dengan GET /api/v1/loans"""
+    loans: [Loan!]! @all
+
+    """Mengambil detail satu peminjaman berdasarkan ID — setara dengan GET /api/v1/loans/{id}"""
+    loan(id: ID! @eq): Loan @find
+}
+
+type Mutation {
+    """Membuat data peminjaman baru — setara dengan POST /api/v1/loans"""
+    createLoan(input: CreateLoanInput! @spread): Loan @create
+}

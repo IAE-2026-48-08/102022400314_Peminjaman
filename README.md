@@ -1,134 +1,133 @@
 # 📚 Peminjaman Service — E-Library IAE
 
-**NIM**: 102022400314  
-**Mata Kuliah**: BBK2HAB3 — Integrasi Aplikasi Enterprise  
-**Dosen**: Ekky Novriza Alam  
-**GitHub Org**: [IAE-2026-48-08](https://github.com/IAE-2026-48-08)
+**NIM**: 102022400314 | **Mata Kuliah**: BBK2HAB3 — Integrasi Aplikasi Enterprise  
+**Dosen**: Ekky Novriza Alam | **GitHub Org**: [IAE-2026-48-08](https://github.com/IAE-2026-48-08)
 
 ---
 
 ## 🏷️ Tentang Service Ini
 
-**Peminjaman Service** adalah mini-service yang bertanggung jawab mengelola proses peminjaman buku pada sistem E-Library. Service ini mengekspos REST API dan GraphQL endpoint untuk berinteraksi dengan service lain dalam ekosistem IAE.
+**Peminjaman Service** adalah mini-service yang bertanggung jawab mengelola proses peminjaman buku pada sistem E-Library. Mengekspos **REST API** dan **GraphQL** untuk berinteraksi dengan service lain dalam ekosistem IAE.
 
-### Proses Bisnis yang Ditangani
+**Proses bisnis yang ditangani:**
 - Pengajuan peminjaman akses E-book oleh anggota
-- Pemrosesan dan penyimpanan data peminjaman
-- Penampilan semua riwayat transaksi peminjaman aktif
-- Akses detail peminjaman berdasarkan ID
+- Penyimpanan dan penampilan riwayat peminjaman
+- Pengecekan detail peminjaman berdasarkan ID
+
+---
+
+## 🔗 Akses Repository & Demo
+
+| Resource | Link |
+|----------|------|
+| 📦 Repository | [github.com/IAE-2026-48-08/102022400314_Peminjaman](https://github.com/IAE-2026-48-08/102022400314_Peminjaman) |
+| 📖 Swagger UI | `http://localhost:8000/api/documentation` |
+| 🔷 GraphQL Playground | `http://localhost:8000/graphql-playground` |
 
 ---
 
 ## 🚀 Cara Menjalankan
 
-### Metode 1: Local (Artisan)
+### Metode 1 — Local (php artisan)
 
 ```bash
-# Clone repository
-git clone https://github.com/IAE-2026-48-08/102022400314_Peminjaman-Service.git
-cd 102022400314_Peminjaman-Service
+# 1. Clone repository
+git clone https://github.com/IAE-2026-48-08/102022400314_Peminjaman.git
+cd 102022400314_Peminjaman
 
-# Install dependencies
+# 2. Install dependencies
 composer install
 
-# Setup environment
+# 3. Setup environment
 cp .env.example .env
 php artisan key:generate
 
-# Jalankan migration
+# 4. Setup database & data contoh
 php artisan migrate
+php artisan db:seed
 
-# Jalankan server
+# 5. Jalankan server
 php artisan serve
 ```
 
-Akses di: `http://localhost:8000`
+✅ Akses di: `http://localhost:8000`
 
-### Metode 2: Docker
+---
+
+### Metode 2 — Docker
 
 ```bash
-# Build dan jalankan
-docker-compose up -d --build
+# 1. Clone repository
+git clone https://github.com/IAE-2026-48-08/102022400314_Peminjaman.git
+cd 102022400314_Peminjaman
 
-# Jalankan migration di container
-docker exec peminjaman-service php artisan migrate
+# 2. Build dan jalankan container
+docker compose up --build -d
+
+# 3. Cek container berjalan
+docker ps
 ```
 
-Akses di: `http://localhost:8000`
+✅ Akses di: `http://localhost:8080`
+
+> **Catatan**: Database, migration, dan seeder sudah dijalankan otomatis saat Docker build. Tidak perlu setup manual tambahan.
 
 ---
 
 ## 📡 REST API Endpoints
 
-Semua endpoint memerlukan header autentikasi:
+Semua endpoint **wajib** menyertakan header:
 ```
 X-IAE-KEY: 102022400314
 ```
 
-| Method | Endpoint | Deskripsi |
-|--------|----------|-----------|
-| `GET`  | `/api/v1/loans` | Ambil semua data peminjaman |
-| `GET`  | `/api/v1/loans/{id}` | Ambil detail peminjaman by ID |
-| `POST` | `/api/v1/loans` | Buat peminjaman baru |
+| Method | Endpoint | Deskripsi | Status Code |
+|--------|----------|-----------|-------------|
+| `GET` | `/api/v1/loans` | Ambil semua data peminjaman | 200 |
+| `GET` | `/api/v1/loans/{id}` | Ambil detail peminjaman by ID | 200 / 404 |
+| `POST` | `/api/v1/loans` | Buat peminjaman baru | 201 |
+| `*` | `/api/v1/*` tanpa key | Akses tanpa header API Key | 401 |
 
-### Contoh Request
-
-**GET /api/v1/loans**
-```bash
-curl -X GET http://localhost:8000/api/v1/loans \
-  -H "X-IAE-KEY: 102022400314" \
-  -H "Content-Type: application/json"
-```
-
-**POST /api/v1/loans**
-```bash
-curl -X POST http://localhost:8000/api/v1/loans \
-  -H "X-IAE-KEY: 102022400314" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "member_id": "MBR-001",
-    "book_id": "BOOK-123",
-    "book_title": "Clean Code",
-    "member_name": "Budi Santoso",
-    "loan_date": "2025-01-15",
-    "due_date": "2025-01-29"
-  }'
-```
-
-### Format Respons (Standard Integration Contract)
+### Contoh Request POST
 
 ```json
+POST /api/v1/loans
+Header: X-IAE-KEY: 102022400314
+
 {
-  "status": "success",
-  "message": "Data retrieved successfully",
-  "data": [...],
-  "meta": {
-    "service_name": "Peminjaman-Service",
-    "api_version": "v1"
-  }
+  "member_id": "MBR-001",
+  "book_id": "BOOK-123",
+  "book_title": "Clean Code",
+  "member_name": "Budi Santoso",
+  "loan_date": "2026-06-11",
+  "due_date": "2026-06-25",
+  "notes": "Peminjaman e-book"
 }
 ```
 
 ---
 
-## 📖 Swagger / API Documentation
-
-Akses Swagger UI di: `http://localhost:8000/api/documentation`
-
----
-
 ## 🔷 GraphQL
 
-Akses GraphQL Playground di: `http://localhost:8000/graphql-playground`
+Endpoint: `POST http://localhost:8000/graphql`  
+Playground: `http://localhost:8000/graphql-playground`
 
-**Contoh Query:**
 ```graphql
+# Query semua peminjaman
 query {
   loans {
     id
-    member_id
     book_title
     member_name
+    status
+  }
+}
+
+# Query peminjaman by ID
+query {
+  loan(id: 1) {
+    id
+    book_title
     loan_date
     due_date
     status
@@ -138,18 +137,13 @@ query {
 
 ---
 
-## 🔐 Keamanan
-
-- **Metode**: API Key via Request Header
-- **Header Key**: `X-IAE-KEY`
-- **Value**: NIM Mahasiswa (`102022400314`)
-
----
-
 ## 🛠️ Tech Stack
 
-- **Framework**: Laravel 12 (PHP 8.2)
-- **Database**: SQLite (dev) / MySQL (Docker)
-- **API Doc**: L5-Swagger (OpenAPI 3.0)
-- **GraphQL**: Lighthouse v6
-- **Container**: Docker + Docker Compose
+| Layer | Teknologi |
+|-------|-----------|
+| Framework | Laravel 12 (PHP 8.2) |
+| Database | SQLite (dev) |
+| REST Docs | L5-Swagger v11 (OpenAPI 3.0) |
+| GraphQL | Lighthouse v6 |
+| Container | Docker + Apache |
+| Security | API Key via `X-IAE-KEY` header |

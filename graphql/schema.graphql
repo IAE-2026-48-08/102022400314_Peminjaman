@@ -1,4 +1,8 @@
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
 """
+
 Tipe data Loan — Peminjaman Buku E-Library
 Merepresentasikan satu record peminjaman buku oleh anggota
 """

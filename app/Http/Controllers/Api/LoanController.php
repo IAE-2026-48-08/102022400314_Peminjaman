@@ -14,6 +14,7 @@ use OpenApi\Attributes as OA;
     title: 'Peminjaman Service API',
     description: 'API Service Peminjaman Buku E-Library — IAE BBK2HAB3 | NIM: 102022400314',
 )]
+#[OA\Server(url: 'http://localhost:8080', description: 'Docker Server')]
 #[OA\Server(url: 'http://localhost:8000', description: 'Local Development Server')]
 #[OA\SecurityScheme(
     securityScheme: 'ApiKeyAuth',

@@ -7,6 +7,10 @@
     },
     "servers": [
         {
+            "url": "http://localhost:8080",
+            "description": "Docker Server"
+        },
+        {
             "url": "http://localhost:8000",
             "description": "Local Development Server"
         }
@@ -351,6 +355,11 @@
                     "notes": {
                         "type": "string",
                         "example": "Peminjaman via platform",
+                        "nullable": true
+                    },
+                    "audit_receipt": {
+                        "type": "string",
+                        "example": "IAE-LOG-2026-F349DF14",
                         "nullable": true
                     },
                     "created_at": {

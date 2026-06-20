@@ -35,4 +35,12 @@ return [
         ],
     ],
 
+    // IAE Central SSO — Tugas 3
+    'sso' => [
+        'base_url' => env('SSO_BASE_URL', 'https://iae-sso.virtualfri.id'),
+        'api_key'  => env('SSO_API_KEY', 'KEY-MHS-325'),
+        'team_id'  => env('SSO_TEAM_ID', 'TEAM-05'),
+        'nim'      => env('IAE_API_KEY', '102022400314'),
+    ],
+
 ];

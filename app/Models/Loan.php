@@ -21,6 +21,7 @@ use OpenApi\Attributes as OA;
         new OA\Property(property: 'return_date', type: 'string', format: 'date', nullable: true, example: null),
         new OA\Property(property: 'status', type: 'string', enum: ['active', 'returned', 'overdue'], example: 'active'),
         new OA\Property(property: 'notes', type: 'string', nullable: true, example: 'Peminjaman via platform'),
+        new OA\Property(property: 'audit_receipt', type: 'string', nullable: true, example: 'IAE-LOG-2026-F349DF14'),
         new OA\Property(property: 'created_at', type: 'string', format: 'datetime', readOnly: true),
         new OA\Property(property: 'updated_at', type: 'string', format: 'datetime', readOnly: true),
     ]
@@ -39,6 +40,7 @@ class Loan extends Model
         'return_date',
         'status',
         'notes',
+        'audit_receipt',
     ];
 
     protected $casts = [

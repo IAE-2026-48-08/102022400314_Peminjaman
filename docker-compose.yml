@@ -8,6 +8,8 @@ services:
     restart: unless-stopped
     ports:
       - "8080:80"
+    volumes:
+      - .:/var/www/html
     environment:
       - APP_NAME=Peminjaman-Service
       - APP_ENV=local
@@ -18,8 +20,10 @@ services:
       - DB_DATABASE=/var/www/html/database/database.sqlite
       - IAE_API_KEY=102022400314
       - L5_SWAGGER_GENERATE_ALWAYS=true
+      - KEANGGOTAAN_SERVICE_URL=http://host.docker.internal:8001
     networks:
       - peminjaman-network
+
 
 networks:
   peminjaman-network:

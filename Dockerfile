@@ -35,16 +35,16 @@ RUN touch database/database.sqlite \
     && php artisan migrate --force \
     && php artisan db:seed --force
 
+# Clear caches and generate Swagger docs
+RUN php artisan config:clear \
+    && php artisan cache:clear \
+    && php artisan l5-swagger:generate
+
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \
     && chmod -R 755 /var/www/html/bootstrap/cache \
     && chmod 664 /var/www/html/database/database.sqlite
-
-# Clear caches and generate Swagger docs
-RUN php artisan config:clear \
-    && php artisan cache:clear \
-    && php artisan l5-swagger:generate
 
 EXPOSE 80
 

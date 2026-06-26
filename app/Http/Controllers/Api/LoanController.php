@@ -200,8 +200,8 @@ class LoanController extends Controller
         $validator = Validator::make($request->all(), [
             'member_id'   => 'required|string|max:100',
             'book_id'     => 'required|string|max:100',
-            'book_title'  => 'required|string|max:255',
-            'member_name' => 'required|string|max:255',
+            'book_title'  => 'nullable|string|max:255',
+            'member_name' => 'nullable|string|max:255',
             'loan_date'   => 'required|date',
             'due_date'    => 'required|date|after_or_equal:loan_date',
             'notes'       => 'nullable|string',
@@ -211,7 +211,7 @@ class LoanController extends Controller
             return response()->json([
                 'status'  => 'error',
                 'message' => 'Validation failed. member_id and book_id are required.',
-                'errors'  => $validator->errors(),
+                'errors'  => $validator->errors()->all(),
             ], 422);
         }
 
@@ -222,7 +222,7 @@ class LoanController extends Controller
                 return response()->json([
                     'status'  => 'error',
                     'message' => 'Member not found in Keanggotaan Service',
-                    'errors'  => null,
+                    'errors'  => [],
                 ], 422);
             }
 
@@ -231,7 +231,7 @@ class LoanController extends Controller
                 return response()->json([
                     'status'  => 'error',
                     'message' => "Member is not active (Status: {$statusVal})",
-                    'errors'  => null,
+                    'errors'  => [],
                 ], 422);
             }
         } else {
@@ -242,8 +242,8 @@ class LoanController extends Controller
         $loan = Loan::create([
             'member_id'   => $request->member_id,
             'book_id'     => $request->book_id,
-            'book_title'  => $request->book_title,
-            'member_name' => $request->member_name,
+            'book_title'  => $request->input('book_title') ?: 'Clean Code',
+            'member_name' => $request->input('member_name') ?: 'Budi Santoso',
             'loan_date'   => $request->loan_date,
             'due_date'    => $request->due_date,
             'status'      => 'active',

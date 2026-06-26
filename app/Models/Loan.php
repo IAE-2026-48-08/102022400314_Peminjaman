@@ -44,8 +44,8 @@ class Loan extends Model
     ];
 
     protected $casts = [
-        'loan_date'   => 'date',
-        'due_date'    => 'date',
-        'return_date' => 'date',
+        'loan_date'   => 'date:Y-m-d',
+        'due_date'    => 'date:Y-m-d',
+        'return_date' => 'date:Y-m-d',
     ];
 }

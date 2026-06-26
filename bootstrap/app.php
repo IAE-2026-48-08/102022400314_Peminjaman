@@ -24,7 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
             return response()->json([
                 'status'  => 'error',
                 'message' => 'Validation failed',
-                'errors'  => $e->errors(),
+                'errors'  => $e->validator->errors()->all(),
             ], 422);
         });
     })->create();

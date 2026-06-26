@@ -16,14 +16,14 @@
         }
     ],
     "paths": {
-        "/api/v1/loans": {
+        "/api/v1/login": {
             "get": {
                 "tags": [
                     "Loans"
                 ],
                 "summary": "Ambil semua daftar peminjaman",
                 "description": "Mengembalikan semua data peminjaman buku yang tersimpan di sistem.",
-                "operationId": "7b7abc4c34a3af61f8848cb61741fd0e",
+                "operationId": "3a92c1cc2c62ffd1d9cc97327979009f",
                 "responses": {
                     "200": {
                         "description": "Berhasil mengambil data",
@@ -84,7 +84,7 @@
                 ],
                 "summary": "Buat peminjaman buku baru",
                 "description": "Membuat data peminjaman baru. Member mengajukan peminjaman akses E-book.",
-                "operationId": "8018f8386b85532378c494c7b648e6e9",
+                "operationId": "46efb7208f716b6437b0b10f04d8598d",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -206,14 +206,14 @@
                 ]
             }
         },
-        "/api/v1/loans/{id}": {
+        "/api/v1/login/{id}": {
             "get": {
                 "tags": [
                     "Loans"
                 ],
                 "summary": "Ambil detail peminjaman berdasarkan ID",
                 "description": "Mengembalikan detail data satu peminjaman berdasarkan ID yang diberikan.",
-                "operationId": "9330a8c8074b0405a752da7873822cbc",
+                "operationId": "b99da2ae3b18fa0dfd6bf0e28534289e",
                 "parameters": [
                     {
                         "name": "id",

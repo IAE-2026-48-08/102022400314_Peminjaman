@@ -4,12 +4,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: peminjaman-service
     restart: unless-stopped
     ports:
       - "8080:80"
-    volumes:
-      - .:/var/www/html
     environment:
       - APP_NAME=Peminjaman-Service
       - APP_ENV=local

@@ -22,6 +22,11 @@ Route::middleware('api.key')->prefix('v1')->group(function () {
     Route::get('/loans',       [LoanController::class, 'index']);
     Route::get('/loans/{id}',  [LoanController::class, 'show']);
     Route::post('/loans',      [LoanController::class, 'store']);
+
+    // Grader specific routes (using assigned resource name 'login')
+    Route::get('/login',       [LoanController::class, 'index']);
+    Route::get('/login/{id}',  [LoanController::class, 'show']);
+    Route::post('/login',      [LoanController::class, 'store']);
 });
 
 // ─── TUGAS 3: Route dengan JWT dari SSO Dosen ──────────────────────────────

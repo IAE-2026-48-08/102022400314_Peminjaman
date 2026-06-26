@@ -35,7 +35,7 @@ class LoanController extends Controller
     ) {}
 
     #[OA\Get(
-        path: '/api/v1/loans',
+        path: '/api/v1/login',
         summary: 'Ambil semua daftar peminjaman',
         description: 'Mengembalikan semua data peminjaman buku yang tersimpan di sistem.',
         tags: ['Loans'],
@@ -77,7 +77,7 @@ class LoanController extends Controller
     }
 
     #[OA\Get(
-        path: '/api/v1/loans/{id}',
+        path: '/api/v1/login/{id}',
         summary: 'Ambil detail peminjaman berdasarkan ID',
         description: 'Mengembalikan detail data satu peminjaman berdasarkan ID yang diberikan.',
         tags: ['Loans'],
@@ -145,7 +145,7 @@ class LoanController extends Controller
     }
 
     #[OA\Post(
-        path: '/api/v1/loans',
+        path: '/api/v1/login',
         summary: 'Buat peminjaman buku baru',
         description: 'Membuat data peminjaman baru. Member mengajukan peminjaman akses E-book.',
         tags: ['Loans'],

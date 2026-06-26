@@ -210,7 +210,7 @@ class LoanController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'status'  => 'error',
-                'message' => 'Validation failed',
+                'message' => 'Validation failed. member_id and book_id are required.',
                 'errors'  => $validator->errors(),
             ], 422);
         }

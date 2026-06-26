@@ -12,7 +12,7 @@ return [
                 /*
                  * Route for accessing api documentation interface
                  */
-                'api' => 'swagger-ui',
+                'api' => 'api/documentation',
             ],
             'paths' => [
                 /*

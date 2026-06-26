@@ -14,3 +14,10 @@ Route::get('/docs/api-docs.yaml', function () {
     return response()->file(storage_path('api-docs/api-docs.yaml'));
 });
 
+Route::redirect('/swagger-ui', '/api/documentation');
+Route::redirect('/swagger-ui/', '/api/documentation');
+Route::get('/graphql', function () {
+    return redirect('/graphql-playground');
+});
+
+
